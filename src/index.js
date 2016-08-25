@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react'
 import { render } from 'react-dom'
 import { Router, Route, IndexRoute, hashHistory, Link } from 'react-router'
+import people from './data'
 
 function App() {
   return <div>hello</div>
@@ -27,7 +28,25 @@ function Nav(props) {
 
 function Search() {
   return (
-    <div>Search</div>
+    <div>
+      {people.slice(0, 5).map(person => {
+        return (
+          <div key={person._id} className="row">
+            <div className="col-sm-6 col-sm-offset-3" style={{height: '100px'}}>
+              <div className="col-xs-2">
+                <div><img src={person.picture} style={{border: '1px solid black'}} /></div>
+                <div>{person.name}</div>
+              </div>
+              <div className="col-xs-3">
+                <div>Speaks: <span className="label label-primary">{person.speaks}</span></div>
+                <div>Learning: <span className="label label-primary">{person.learning}</span></div>
+              </div>
+              <div className="col-xs-7">{person.intro.length > 80 ? person.intro.slice(0, 80) + '...' : person.intro}</div>
+            </div>
+          </div>
+        )
+      })}
+    </div>
   )
 }
 
