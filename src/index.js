@@ -14,7 +14,7 @@ function Nav(props) {
   return (
     <div>
       <nav className="navbar navbar-inverse">
-        <ul className="nav navbar-nav">
+        <ul className="nav navbar-nav text-center">
           <li className={activePath('/') + ' col-xs-3'}><Link activeClassName="active" to="/">Home</Link></li>
           <li className={activePath('/talks') + ' col-xs-3'}><Link activeClassName="active" to="/talks">Talks</Link></li>
           <li className={activePath('/learn') + ' col-xs-3'}><Link activeClassName="active" to="/learn">Learn</Link></li>
@@ -32,16 +32,18 @@ function Search() {
       {people.slice(0, 5).map(person => {
         return (
           <div key={person._id} className="row">
-            <div className="col-sm-6 col-sm-offset-3" style={{height: '100px'}}>
-              <div className="col-xs-2">
-                <div><img src={person.picture} style={{border: '1px solid black'}} /></div>
-                <div>{person.name}</div>
+            <div className="col-sm-6 col-sm-offset-3 panel panel-default" style={{height: '100px'}}>
+              <div className="panel-body">
+                <div className="col-xs-2">
+                  <div><Link to={'/people/' + person._id}><img src={person.picture} style={{border: '1px solid black'}} /></Link></div>
+                  <div>{person.name}</div>
+                </div>
+                <div className="col-xs-3">
+                  <div>Speaks: <span className="label label-primary">{person.speaks}</span></div>
+                  <div>Learning: <span className="label label-primary">{person.learning}</span></div>
+                </div>
+                <div className="col-xs-7">{person.intro.length > 80 ? person.intro.slice(0, 80) + '...' : person.intro}</div>
               </div>
-              <div className="col-xs-3">
-                <div>Speaks: <span className="label label-primary">{person.speaks}</span></div>
-                <div>Learning: <span className="label label-primary">{person.learning}</span></div>
-              </div>
-              <div className="col-xs-7">{person.intro.length > 80 ? person.intro.slice(0, 80) + '...' : person.intro}</div>
             </div>
           </div>
         )
@@ -73,6 +75,9 @@ const routes = (
     <Route path={'/'} component={Nav}>
       <IndexRoute component={Search} />
     </Route>
+    <Route path={'/people/:id'} component={Nav}>
+      <IndexRoute component={Profile} />
+    </Route> 
     <Route path={'/talks'} component={Nav}>
       <IndexRoute component={Talks} />
     </Route>
