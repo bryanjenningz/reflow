@@ -1,11 +1,8 @@
 import React, { Component, PropTypes } from 'react'
 import { render } from 'react-dom'
 import { Router, Route, IndexRoute, hashHistory, Link } from 'react-router'
-import people from './data'
-
-function App() {
-  return <div>hello</div>
-}
+import people from './data/people'
+import talks from './data/talks'
 
 function Nav(props) {
   const { children } = props
@@ -52,9 +49,50 @@ function Search() {
   )
 }
 
-function Talks() {
+function Talks(props) {
+  const id = Number(props.params.id)
+  const talk = talks.filter(p => p._id === id)[0]
+
+  if (isNaN(id) || !talk) {
+    return (
+      <div>
+        {talks.map(talk => {
+          const messages = talk.messages.slice(0, -1).split('.')
+          console.log(messages)
+          return (
+            <div key={talk._id}>
+              <Link to={`/talks/${talk._id}`}>
+                <div className="row">
+                  <div className="col-sm-6 col-sm-offset-3">
+                    <div className="col-xs-3">
+                      <div><img src="https://robohash.org/errorinventorelaudantium.png?size=50x50&set=set1" /></div>
+                      <div>{talk.name}</div>
+                    </div>
+                    <div className="col-xs-9">{messages[messages.length - 1]}</div>
+                  </div>
+                </div>
+              </Link>
+            </div>
+          )
+        })}
+      </div>
+    )
+  }
+
+  const messages = talk.messages.slice(0, -1).split('.')
   return (
-    <div>Talks</div>
+    <div>
+      <div>{talk.name}</div>
+      <div>
+        {messages.map((message, i) => {
+          return (
+            <div key={i}>
+              {message}
+            </div>
+          )
+        })}
+      </div>
+    </div>
   )
 }
 
@@ -87,6 +125,9 @@ const routes = (
       <IndexRoute component={Profile} />
     </Route> 
     <Route path={'/talks'} component={Nav}>
+      <IndexRoute component={Talks} />
+    </Route>
+    <Route path={'/talks/:id'} component={Nav}>
       <IndexRoute component={Talks} />
     </Route>
     <Route path={'/learn'} component={Nav}>
