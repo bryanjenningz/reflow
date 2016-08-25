@@ -11,17 +11,12 @@ function Nav(props) {
   const activePath = path => currentPath === path ? 'active' : ''
   return (
     <nav className="navbar navbar-inverse">
-      <div className="container-fluid">
-        <div className="navbar-header">
-          <a className="navbar-brand" href="#">Reflow</a>
-        </div>
-        <ul className="nav navbar-nav">
-          <li className={activePath('/')}><Link activeClassName="active" to="/">Home</Link></li>
-          <li className={activePath('/talks')}><Link activeClassName="active" to="/talks">Talks</Link></li>
-          <li className={activePath('/learn')}><Link activeClassName="active" to="/learn">Learn</Link></li>
-          <li className={activePath('/profile')}><Link activeClassName="active" to="/profile">Profile</Link></li>
-        </ul>
-      </div>
+      <ul className="nav navbar-nav">
+        <li className={activePath('/') + ' col-xs-3'}><Link activeClassName="active" to="/">Home</Link></li>
+        <li className={activePath('/talks') + ' col-xs-3'}><Link activeClassName="active" to="/talks">Talks</Link></li>
+        <li className={activePath('/learn') + ' col-xs-3'}><Link activeClassName="active" to="/learn">Learn</Link></li>
+        <li className={activePath('/profile') + ' col-xs-3'}><Link activeClassName="active" to="/profile">Profile</Link></li>
+      </ul>
     </nav>
   )
 }
