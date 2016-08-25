@@ -64,9 +64,17 @@ function Learn() {
   )
 }
 
-function Profile() {
+function Profile(props) {
+  const id = Number(props.params.id)
+  const person = isNaN(id) ? people[0] : (people.filter(p => p._id === id)[0] || people[0])
   return (
-    <div>Profile</div>
+    <div className="text-center">
+      <div>{person.name}</div>
+      <img src={person.picture} style={{border: '1px solid black'}} />
+      <div>Speaks: <span className="label label-primary">{person.speaks}</span></div>
+      <div>Learning: <span className="label label-primary">{person.learning}</span></div>
+      <div className="col-xs-10 col-xs-offset-1 col-sm-6 col-sm-offset-3">{person.intro}</div>
+    </div>
   )
 }
 
