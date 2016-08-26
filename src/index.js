@@ -58,7 +58,6 @@ function Talks(props) {
       <div>
         {talks.map(talk => {
           const messages = talk.messages.slice(0, -1).split('.')
-          console.log(messages)
           return (
             <div key={talk._id}>
               <Link to={`/talks/${talk._id}`}>
@@ -87,7 +86,8 @@ function Talks(props) {
         {messages.map((message, i) => {
           return (
             <div key={i}>
-              {message}
+              <div className="col-xs-2">{i % 2 === 0 ? 'You' : talk.name}:</div>
+              <div className="col-xs-10">{message}</div>
             </div>
           )
         })}
