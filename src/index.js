@@ -79,8 +79,9 @@ function Talks(props) {
   }
 
   const messages = talk.messages.slice(0, -1).split('.')
+  let input
   return (
-    <div>
+    <div className="col-sm-6 col-sm-offset-3 col-md-4 col-md-offset-4">
       <div>{talk.name}</div>
       <div>
         {messages.map((message, i) => {
@@ -100,6 +101,13 @@ function Talks(props) {
           )
         })}
       </div>
+      <form onSubmit={e => {
+        e.preventDefault()
+        console.log(input.value)
+        input.value = ''
+      }}>
+        <input className="form-control" ref={node => input = node} />
+      </form>
     </div>
   )
 }
