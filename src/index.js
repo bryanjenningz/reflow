@@ -84,10 +84,18 @@ function Talks(props) {
       <div>{talk.name}</div>
       <div>
         {messages.map((message, i) => {
+          const isYou = i % 2 === 0
           return (
-            <div key={i}>
-              <div className="col-xs-2">{i % 2 === 0 ? 'You' : talk.name}:</div>
-              <div className="col-xs-10">{message}</div>
+            <div key={i} className="row">
+              {isYou ? (<div className="col-xs-2"><img src="https://robohash.org/errorinventorelaudantium.png?size=50x50&set=set1" /></div>) : ''}
+              <div className="col-xs-10">
+                <div className="panel panel-primary">
+                  <div className="panel-body">
+                    {message}
+                  </div>
+                </div>
+              </div>
+              {!isYou ? (<div className="col-xs-2"><img src="https://robohash.org/errorinventorelaudantium.png?size=50x50&set=set1" /></div>) : ''}
             </div>
           )
         })}
